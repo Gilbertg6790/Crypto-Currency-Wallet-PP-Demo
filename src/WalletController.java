@@ -1,12 +1,13 @@
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.util.Scanner;
-
 
 public class WalletController {
     private WalletModel model;
     private WalletView view;
     private String api_Key;
-    private String Recipent_Adress;
+    private String Recipent_Address;
     private Double amount;
     private String secret_Key;
 
@@ -16,7 +17,7 @@ public class WalletController {
         this.model = model;
     }
 
-    public void accessAccountBalance(String APIKEY) throws IOException {
+    public void accessAccountBalance(String APIKEY) throws IOException, JSONException {
         String sb = "https://block.io/api/v2/get_balance/?api_key=";
         sb += APIKEY;
         model.setJsonResponse(model.getJSON(sb));
@@ -42,9 +43,15 @@ public class WalletController {
         secret_Key = reader.next();
         return secret_Key;
     }
+    public String obtainReciepient_adresss() {
 
-    public void setRecipent_Adress(String recipent_Adress) {
-        Recipent_Adress = recipent_Adress;
+        Scanner reader = new Scanner(System.in);
+        secret_Key = reader.next();
+        return secret_Key;
+    }
+
+    public void setRecipent_Adress(String recipent_Address) {
+        Recipent_Address = recipent_Address;
     }
 
     public void setAPIkey(String api_Key) {
@@ -58,10 +65,9 @@ public class WalletController {
         return api_Key;
     }
 
-    public String getRecipent_Adress() {
-        return Recipent_Adress;
+    public String getRecipent_Address() {
+        return Recipent_Address;
     }
-
 
     public double getAmount() {
         return amount;
@@ -74,12 +80,17 @@ public class WalletController {
     public String getSecret_Key() {
         return secret_Key;
     }
+    public void getAmountToSend(){
+        Scanner reader = new Scanner(System.in);
+        amount = reader.nextDouble();
+        setAmount(amount);
+    }
 
-    public void pickOption() throws IOException {
+    public void pickOption() throws IOException, JSONException {
         int x;
         view.pickOptionString();
-        Scanner reader = new Scanner(System.in);  // Reading from System.in
-        x = reader.nextInt(); // Scans the next token of the input as an int.
+        Scanner reader = new Scanner(System.in);
+        x = reader.nextInt();
 
         switch (x) {
             case 1:
@@ -87,17 +98,18 @@ public class WalletController {
                 view.getBalance(model.getJsonResponse());
                 break;
             case 2:
-                //Get Account Coin-Type
+                accessAccountBalance(getApi_Key());
+                view.getNetwork(model.getJsonResponse());
                 break;
             case 3:
                 System.out.println("Send Money");
-                setSecret_Key("012345678");
-                getApi_Key();
-                setAmount(5);
+                getAmountToSend();
+                setRecipent_Adress();
+
                 setRecipent_Adress("2MxviUjH41KYbgndhTQe6LstF1yqyqKhqEb");
 
                 // To send money (Apikey,Amount2Send,Where2Sendto,SecretPin)
-                withDrawFromAccount(getApi_Key(), getAmount(), getRecipent_Adress(), getSecret_Key());
+                withDrawFromAccount(getApi_Key(), getAmount(), getRecipent_Address(), getSecret_Key());
                 break;
             case 4:
                 view.printAccountDetails(model.getJsonResponse());

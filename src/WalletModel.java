@@ -1,3 +1,4 @@
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -16,7 +17,7 @@ public class WalletModel {
     private BufferedReader in;
     private JSONObject jsonResponse;
 
-    public JSONObject getJSON(String url) throws IOException {
+    public JSONObject getJSON(String url) throws IOException, JSONException {
         urlObject = new URL(url);
         connection = (HttpURLConnection) urlObject.openConnection();
         connection.setRequestMethod("GET");
@@ -29,7 +30,6 @@ public class WalletModel {
 
         return jsonResponse = new JSONObject(response.toString());
     }
-
 
     public JSONObject getJsonResponse() {
         return jsonResponse;
