@@ -1,13 +1,6 @@
 import java.io.IOException;
 import java.util.Scanner;
-/*
-Litecoin	b757-b480-5317-c5d9
-Bitcoin	bad5-b0bb-cb3c-4cd2
-Dogecoin	ef18-dd59-d92d-a556
-Litecoin (TESTNET!)	f334-d75d-936c-d163
-Bitcoin (TESTNET!)	9708-4b63-4b4e-2358
-Dogecoin (TESTNET!)	e5ed-0847-8256-7f49
-*/
+
 
 public class WalletController {
     private WalletModel model;
