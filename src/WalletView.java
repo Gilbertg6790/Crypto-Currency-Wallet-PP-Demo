@@ -1,7 +1,7 @@
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WalletView {
+class WalletView {
 
     public void getNetwork(JSONObject Response) throws JSONException {
         System.out.println("Network : " + Response.getJSONObject("data").getString("network"));
@@ -11,18 +11,16 @@ public class WalletView {
         System.out.println("Balance : " + Response.getJSONObject("data").getString("available_balance"));
     }
 
-    public void get_Amount_Withdrawn(JSONObject Response){
+    public void get_Amount_Sent(JSONObject Response) throws JSONException {
+        System.out.println("Amount Sent : " + Response.getJSONObject("data").getString("amount_sent"));
 
     }
-    public void get_Amount_Sent(JSONObject Response){
+
+    public void get_Network_Fee(JSONObject Response) throws JSONException {
+        System.out.println("Network Fee : " + Response.getJSONObject("data").getString("network_fee"));
 
     }
-    public void get_Network_Fee(JSONObject Response){
 
-    }
-    public void withdrawAmount(){
-        System.out.println("");
-    }
 
     public void getStatus(JSONObject Response) throws JSONException {
         System.out.println("Status : " + Response.getString("status"));
@@ -34,12 +32,22 @@ public class WalletView {
         System.out.println("Balance : " + Response.getJSONObject("data").getString("available_balance"));
     }
 
-    public void ObtainKeyString() {
+    public void obtain_Key_String() {
         System.out.println("Please Enter API Key");
     }
-    public void ObtainSecretKey() {
-        System.out.println("Please Enter Secret Pin");
+
+    public void obtain_Secret_Key() {
+        System.out.println("Please Enter your Secret_Pin to withdraw funds");
     }
+
+    public void obtain_Recipient_Address() {
+        System.out.println("Where would you like to send to? (Input address on network)");
+    }
+
+    public void obtain_Amount_To_Send() {
+        System.out.println("How much would you like to send?");
+    }
+
     public void IncorrectOption() {
         System.out.println("Incorrect option, please try again.");
     }
@@ -50,7 +58,8 @@ public class WalletView {
                 "\n2. Check Account Type" +
                 "\n3. Send Currency to an Address" +
                 "\n4. Print Account Details" +
-                "\n5. Exit");
+                "\n5. Exit" +
+                "\n6. Display Options");
 
     }
 

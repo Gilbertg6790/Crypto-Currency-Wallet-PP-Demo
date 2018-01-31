@@ -8,21 +8,18 @@ import java.net.HttpURLConnection;
 
 import java.net.URL;
 
-public class WalletModel {
+class WalletModel {
 
-    private String url;
-    private String inputLine;
-    private URL urlObject;
-    private HttpURLConnection connection;
-    private BufferedReader in;
+    // --Commented out by Inspection (1/30/2018 6:15 PM):private String url;
     private JSONObject jsonResponse;
 
     public JSONObject getJSON(String url) throws IOException, JSONException {
-        urlObject = new URL(url);
-        connection = (HttpURLConnection) urlObject.openConnection();
+        URL urlObject = new URL(url);
+        HttpURLConnection connection = (HttpURLConnection) urlObject.openConnection();
         connection.setRequestMethod("GET");
-        in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        StringBuffer response = new StringBuffer();
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String inputLine;
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
         }
