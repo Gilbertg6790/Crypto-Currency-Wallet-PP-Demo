@@ -1,6 +1,10 @@
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/*
+All the visual calls for the console prototype, returns objects to parse from and can extract
+specific types of data depending on the call.
+* */
 class WalletView {
 
     public void getNetwork(JSONObject Response) throws JSONException {
@@ -20,7 +24,10 @@ class WalletView {
         System.out.println("Network Fee : " + Response.getJSONObject("data").getString("network_fee"));
 
     }
+    public void get_estimated_network_fee(JSONObject Response) throws JSONException {
+        System.out.println("Estimated Network Fee : " + Response.getJSONObject("data").getString("estimated_network_fee"));
 
+    }
 
     public void getStatus(JSONObject Response) throws JSONException {
         System.out.println("Status : " + Response.getString("status"));
@@ -59,8 +66,12 @@ class WalletView {
                 "\n3. Send Currency to an Address" +
                 "\n4. Print Account Details" +
                 "\n5. Exit" +
-                "\n6. Display Options");
+                "\n6. Display Options"+
+                "\n7. Estimate Network Fee"
+        );
 
     }
+
+
 
 }

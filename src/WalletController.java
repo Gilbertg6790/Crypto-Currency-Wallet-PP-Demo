@@ -3,8 +3,16 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Scanner;
+
 //Test
 @SuppressWarnings("SpellCheckingInspection")
+        /*
+         * Wallet Controller class that holds all the functionallity for wallet manipulation
+         * including Acessing balance,withdrawing,estimatingnetworkfee, and sending money to other users
+         * Some parameters are needed before a lot of the functions are used. Depending on the methods passed values we'd have
+         * store that first IE Store amount_to_send before calling sendMoney();
+         * */
+
 class WalletController {
     private final WalletModel model;
     private final WalletView view;
@@ -27,8 +35,13 @@ class WalletController {
 
     private void withDrawFromAccount(String APIKEY, Double amount_to_send, String adress_to_send_to, String secret_pin) throws IOException, JSONException {
         String sb = "https://block.io/api/v2/withdraw/?api_key=" + APIKEY + "&amounts=" + amount_to_send + "&to_addresses=" + adress_to_send_to + "&pin=" + secret_pin;
-        // System.out.println(sb);
 
+
+        model.setJsonResponse(model.getJSON(sb));
+    }
+
+    private void estimateNetworkFee(String APIKey, Double amount_to_send, String adress_to_send_to) throws IOException {
+        String sb = "https://block.io/api/v2/get_network_fee_estimate/?api_key=" + APIKey + "&amounts=" + amount_to_send + "&to_addresses=" + adress_to_send_to;
         model.setJsonResponse(model.getJSON(sb));
     }
 
@@ -97,7 +110,6 @@ class WalletController {
         int x;
         boolean exit = true;
         view.pickOptionString();
-        //noinspection ConstantConditions
         while (exit) {
             Scanner reader = new Scanner(System.in);
             x = reader.nextInt();
@@ -122,18 +134,14 @@ class WalletController {
                 6)Confirm.
                 */
                     //Test address: 2MxviUjH41KYbgndhTQe6LstF1yqyqKhqEb
-                    //Test Key: 	e5ed-0847-8256-7f49
+                    //Test Key: 	e5ed-0847-8256-7f49 (Al's TESTNET DO NOT SENT REAL COIN)
                     setSecret_Key(obtainSecret_Key());
                     setRecipent_Adress(obtainReciepient_adresss());
                     setAmount(obtainAmount());
-
                     withDrawFromAccount(getApi_Key(), getAmount(), getrecipient_Address(), getSecret_Key());
                     view.getStatus(model.getJsonResponse());
-                    JSONObject jsreponse = model.getJsonResponse();
-                    System.out.println(jsreponse.getString("status"));
                     view.get_Amount_Sent(model.getJsonResponse());
                     view.get_Network_Fee(model.getJsonResponse());
-
                     break;
                 case 4:
                     view.printAccountDetails(model.getJsonResponse());
@@ -145,6 +153,16 @@ class WalletController {
                 case 6:
                     view.pickOptionString();
                     break;
+                case 7:
+//                    Estimate Fee Over the network for the amount sent
+//                    1) Get Api key
+//                    2) Sudo amount to send
+//                    3) Adress to send to.
+                    setAmount(obtainAmount());
+                    setRecipent_Adress(obtainReciepient_adresss());
+                    estimateNetworkFee(getApi_Key(), getAmount(), getrecipient_Address());
+                    view.get_estimated_network_fee(model.getJsonResponse());
+                    break;
                 default:
                     view.IncorrectOption();
                     break;
@@ -152,4 +170,6 @@ class WalletController {
             }
         }
     }
+
+
 }

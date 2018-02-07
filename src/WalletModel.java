@@ -7,10 +7,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
 import java.net.URL;
+/*
+ * This class is just used to get an open connection to the web and make URL calls according to Block.io's API per methods
+ */
 
 class WalletModel {
 
-    // --Commented out by Inspection (1/30/2018 6:15 PM):private String url;
     private JSONObject jsonResponse;
 
     public JSONObject getJSON(String url) throws IOException, JSONException {
