@@ -1,3 +1,4 @@
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -107,24 +108,25 @@ class WalletController {
 
 
     public void pickOption() throws IOException, JSONException {
-        int x;
-        boolean exit = true;
-        view.pickOptionString();
-        while (exit) {
-            Scanner reader = new Scanner(System.in);
-            x = reader.nextInt();
+        try {
+            int x;
+            boolean exit = true;
+            view.pickOptionString();
+            while (exit) {
+                Scanner reader = new Scanner(System.in);
+                x = reader.nextInt();
 
 
-            switch (x) {
-                case 1:
-                    accessAccountBalance(getApi_Key());
-                    view.getBalance(model.getJsonResponse());
-                    break;
-                case 2:
-                    accessAccountBalance(getApi_Key());
-                    view.getNetwork(model.getJsonResponse());
-                    break;
-                case 3:
+                switch (x) {
+                    case 1:
+                        accessAccountBalance(getApi_Key());
+                        view.getBalance(model.getJsonResponse());
+                        break;
+                    case 2:
+                        accessAccountBalance(getApi_Key());
+                        view.getNetwork(model.getJsonResponse());
+                        break;
+                    case 3:
                 /*
                 1)Get ApiKey
                 2)Get Pin
@@ -133,43 +135,50 @@ class WalletController {
                 5)Send
                 6)Confirm.
                 */
-                    //Test address: 2MxviUjH41KYbgndhTQe6LstF1yqyqKhqEb
-                    //Test Key: 	e5ed-0847-8256-7f49 (Al's TESTNET DO NOT SENT REAL COIN)
-                    setSecret_Key(obtainSecret_Key());
-                    setRecipent_Adress(obtainReciepient_adresss());
-                    setAmount(obtainAmount());
-                    withDrawFromAccount(getApi_Key(), getAmount(), getrecipient_Address(), getSecret_Key());
-                    view.getStatus(model.getJsonResponse());
-                    view.get_Amount_Sent(model.getJsonResponse());
-                    view.get_Network_Fee(model.getJsonResponse());
-                    break;
-                case 4:
-                    view.printAccountDetails(model.getJsonResponse());
-                    break;
-                case 5:
-                    exit = false;
-                    System.exit(0);
-                    break;
-                case 6:
-                    view.pickOptionString();
-                    break;
-                case 7:
+                        //Test address: 2MxviUjH41KYbgndhTQe6LstF1yqyqKhqEb
+                        //Test Key: 	e5ed-0847-8256-7f49 (Al's TESTNET DO NOT SENT REAL COIN)
+                        setSecret_Key(obtainSecret_Key());
+                        setRecipent_Adress(obtainReciepient_adresss());
+                        setAmount(obtainAmount());
+                        withDrawFromAccount(getApi_Key(), getAmount(), getrecipient_Address(), getSecret_Key());
+                        view.getStatus(model.getJsonResponse());
+                        view.get_Amount_Sent(model.getJsonResponse());
+                        view.get_Network_Fee(model.getJsonResponse());
+                        break;
+                    case 4:
+                        accessAccountBalance(getApi_Key());
+                        view.printAccountDetails(model.getJsonResponse());
+                        break;
+                    case 5:
+                        exit = false;
+                        System.exit(0);
+                        break;
+                    case 6:
+                        view.pickOptionString();
+                        break;
+                    case 7:
 //                    Estimate Fee Over the network for the amount sent
 //                    1) Get Api key
 //                    2) Sudo amount to send
 //                    3) Adress to send to.
-                    setAmount(obtainAmount());
-                    setRecipent_Adress(obtainReciepient_adresss());
-                    estimateNetworkFee(getApi_Key(), getAmount(), getrecipient_Address());
-                    view.get_estimated_network_fee(model.getJsonResponse());
-                    break;
-                default:
-                    view.IncorrectOption();
-                    break;
+                        setAmount(obtainAmount());
+                        setRecipent_Adress(obtainReciepient_adresss());
+                        //view.get_estimated_network_fee(model.getJsonResponse());
 
+                        break;
+                    default:
+                        view.IncorrectOption();
+                        break;
+
+                }
             }
         }
+        catch (JSONException jsonEx){
+            jsonEx.printStackTrace();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
-
 
 }
