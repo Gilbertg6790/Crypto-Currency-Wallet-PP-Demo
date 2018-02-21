@@ -12,7 +12,9 @@ class WalletDemo {
         WalletView view = new WalletView();
         WalletController testRun = new WalletController(view, model);
 
+
         testRun.setAPIkey(testRun.obtainAPIKEY()); // Need Api key for account access
         testRun.pickOption(); // Main program loop for options
     }
+
 }

@@ -163,9 +163,10 @@ class WalletController {
 //                    3) Adress to send to.
                         setAmount(obtainAmount());
                         setRecipent_Adress(obtainReciepient_adresss());
-                        //view.get_estimated_network_fee(model.getJsonResponse());
+                        view.get_estimated_network_fee(model.getJsonResponse());
 
                         break;
+
                     default:
                         view.IncorrectOption();
                         break;
@@ -173,12 +174,14 @@ class WalletController {
                 }
             }
         }
-        catch (JSONException jsonEx){
-            jsonEx.printStackTrace();
+        catch (JSONException e){
+            System.out.println(e);
         }
         catch(Exception e){
-            e.printStackTrace();
+            System.out.println(e);
         }
+
     }
+
 
 }
