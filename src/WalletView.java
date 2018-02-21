@@ -26,6 +26,8 @@ class WalletView {
     }
     public void get_estimated_network_fee(JSONObject Response) throws JSONException {
         System.out.println("Estimated Network Fee : " + Response.getJSONObject("data").getString("estimated_network_fee"));
+    }
+    public void get_Error_Message(JSONObject Response) throws JSONException{
 
     }
 
